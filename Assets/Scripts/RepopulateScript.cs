@@ -7,7 +7,7 @@ public class RepopulateScript : MonoBehaviour {
 	protected GameManagerScript gameManager;
 
 	public virtual void Start () {
-		gameManager = GetComponent<GameManagerScript>(); //assigne reference
+		gameManager = GetComponent<GameManagerScript>(); //assign reference
 	}
 
 	//Check for empty spaces within the grid, if found pass their positions to the GameManager
