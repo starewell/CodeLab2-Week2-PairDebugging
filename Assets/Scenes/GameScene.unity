@@ -160,6 +160,8 @@ MonoBehaviour:
   gridHeight: 8
   tokenSize: 1
   grid: {fileID: 0}
+  matchDelay: 0
+  matchDelayMax: 1
 --- !u!4 &636344697
 Transform:
   m_ObjectHideFlags: 0

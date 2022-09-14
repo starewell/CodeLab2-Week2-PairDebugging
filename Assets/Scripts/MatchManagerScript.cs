@@ -84,8 +84,6 @@ public class MatchManagerScript : MonoBehaviour {
     #region //vertical matchmaking (bug 1)
     public bool GridHasVerticalMatch(int x, int y)
     {
-        //Debug.Log("vertical match found");
-
         GameObject token1 = gameManager.gridArray[x, y + 0];
         GameObject token2 = gameManager.gridArray[x, y + 1]; //Token one space to the right of original token
         GameObject token3 = gameManager.gridArray[x, y + 2]; //Token two spaces to the right of original token
@@ -159,8 +157,9 @@ public class MatchManagerScript : MonoBehaviour {
 				if(x < gameManager.gridWidth - 2){
 
 					int horizonMatchLength = GetHorizontalMatchLength(x, y); //Calculate length of the match
+                    int verticalMatchHeight = GetVerticalMatchHeight(x, y); //Calculate length of the mat
 
-					if(horizonMatchLength > 2){ //If the match length is greater than 2
+                    if (horizonMatchLength > 2){ //If the match length is greater than 2
 						//Loop through tokens within the bounds of the length in the row
 						for(int i = x; i < x + horizonMatchLength; i++){
 							//Store token at coord
@@ -172,52 +171,25 @@ public class MatchManagerScript : MonoBehaviour {
 							numRemoved++; //Store locally how many are removed
 						}
 					}
-				}
-			}
-		}
-		//Return number of tokens removed (unused)
-		return numRemoved;
-	}
-    #endregion
-
-    #region //remove vertical matches
-    public virtual int RemoveVerticalMatches()
-    {
-        Debug.Log("removing vertical match");
-
-        int numRemoved = 0; //Default value, removed no tokens so far
-
-        //Loop through the grid dimensions
-        for (int y = 0; y < gameManager.gridHeight; y++)
-        {
-            for (int x = 0; x < gameManager.gridWidth; x++)
-            {
-                //Don't check the two right most columns
-                if (y < gameManager.gridHeight - 2)
-                {
-
-                    int verticalMatchHeight = GetVerticalMatchHeight(y, x); //Calculate length of the match
-                    Debug.Log(verticalMatchHeight);
-
                     if (verticalMatchHeight > 2)
                     { //If the match length is greater than 2
                       //Loop through tokens within the bounds of the length in the row
                         for (int i = y; i < y + verticalMatchHeight; i++)
                         {
                             //Store token at coord
-                            GameObject token = gameManager.gridArray[i, y];
+                            GameObject token = gameManager.gridArray[x, i];
                             Destroy(token); //Destroy token at coord
 
                             //Update manager reference grid
-                            gameManager.gridArray[i, y] = null;
+                            gameManager.gridArray[y, i] = null;
                             numRemoved++; //Store locally how many are removed
                         }
                     }
-                }
-            }
-        }
-        //Return number of tokens removed (unused)
-        return numRemoved;
-    }
+				}
+			}
+		}
+		//Return number of tokens removed (unused)
+		return numRemoved;
+	}
     #endregion
 }
