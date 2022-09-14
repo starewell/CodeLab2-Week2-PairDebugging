@@ -89,6 +89,7 @@ public class MatchManagerScript : MonoBehaviour {
     //}
     #endregion
 
+    #region //remove horizontal matches
     //is called repeatedly in GameManager update when there are no empty spaces and GridHasMatch() returns true
     public virtual int RemoveMatches(){
 		int numRemoved = 0; //Default value, removed no tokens so far
@@ -119,4 +120,8 @@ public class MatchManagerScript : MonoBehaviour {
 		//Return number of tokens removed (unused)
 		return numRemoved;
 	}
+	#endregion
+
+	#region //remove vertical matches
+	#endregion
 }
