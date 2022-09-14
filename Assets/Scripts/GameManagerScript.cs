@@ -40,6 +40,7 @@ public class GameManagerScript : MonoBehaviour {
 			//Check for matches in the MatchManagerScript
 			if(matchManager.GridHasMatch()){
 				matchManager.RemoveMatches();
+				matchManager.RemoveVerticalMatches(); //edit
 			} else {
 				//Allow the player to make a selection
 				inputManager.SelectToken();
