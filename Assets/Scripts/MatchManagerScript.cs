@@ -25,8 +25,9 @@ public class MatchManagerScript : MonoBehaviour {
 		return match;
 	}
 
-	//Check token's rightward neighbors for matching tokens
-	public bool GridHasHorizontalMatch(int x, int y){
+    #region //horizontal matchmaking
+    //Check token's rightward neighbors for matching tokens
+    public bool GridHasHorizontalMatch(int x, int y){
 		GameObject token1 = gameManager.gridArray[x + 0, y];
 		GameObject token2 = gameManager.gridArray[x + 1, y]; //Token one space to the right of original token
 		GameObject token3 = gameManager.gridArray[x + 2, y]; //Token two spaces to the right of original token
@@ -74,9 +75,22 @@ public class MatchManagerScript : MonoBehaviour {
 		
 		return matchLength;
 	}
+    #endregion
 
-	//is called repeatedly in GameManager update when there are no empty spaces and GridHasMatch() returns true
-	public virtual int RemoveMatches(){
+    #region //vertical matchmaking (bug 1)
+    //public bool GridHasVerticalMatch(int x, int y)
+    //{
+
+    //}
+
+    //public int GetVerticalMatchLength(int x, int y)
+    //{
+
+    //}
+    #endregion
+
+    //is called repeatedly in GameManager update when there are no empty spaces and GridHasMatch() returns true
+    public virtual int RemoveMatches(){
 		int numRemoved = 0; //Default value, removed no tokens so far
 
 		//Loop through the grid dimensions
