@@ -20,4 +20,7 @@ public class RepopulateScript : MonoBehaviour {
 			}
 		}
 	}
+
+    #region //top row repopulation post match (bug 2)
+    #endregion
 }
