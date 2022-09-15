@@ -54,7 +54,7 @@ public class MoveTokensScript : MonoBehaviour {
 		lerpPercent = 0;
 	}
 
-	//Recieve data from Input class and store it locally to be used in exchange
+	//Receive data from Input class and store it locally to be used in exchange
 	//Reversable bool indicates if the move was done by a player and can be reversed by the game manager
 	public void SetupTokenExchange(GameObject token1, Vector2 pos1,
 	                               GameObject token2, Vector2 pos2, bool reversable){
@@ -77,8 +77,8 @@ public class MoveTokensScript : MonoBehaviour {
 		Vector3 startPos = gameManager.GetWorldPositionFromGridPosition((int)exchangeGridPos1.x, (int)exchangeGridPos1.y);
 		Vector3 endPos = gameManager.GetWorldPositionFromGridPosition((int)exchangeGridPos2.x, (int)exchangeGridPos2.y);
 
-//		Vector3 movePos1 = Vector3.Lerp(startPos, endPos, lerpPercent);
-//		Vector3 movePos2 = Vector3.Lerp(endPos, startPos, lerpPercent);
+		//Vector3 movePos1 = Vector3.Lerp(startPos, endPos, lerpPercent);
+		//Vector3 movePos2 = Vector3.Lerp(endPos, startPos, lerpPercent);
 
 		//Lerp positions using custom animation function
 		Vector3 movePos1 = SmoothLerp(startPos, endPos, lerpPercent);

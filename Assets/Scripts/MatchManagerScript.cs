@@ -19,7 +19,7 @@ public class MatchManagerScript : MonoBehaviour {
 				if(x < gameManager.gridWidth - 2){ //Only check tokens 2 spaces away from the right side of the grid
 					match = (match || GridHasHorizontalMatch(x, y)); //Check for matches in each token, unless a match has already been found
 				}
-                if (y < gameManager.gridHeight - 2) //edit
+                if (y < gameManager.gridHeight - 2) //edit; vertical matchmaking
                 { //Only check tokens 2 spaces away from the right side of the grid
                     match = (match || GridHasVerticalMatch(x, y)); //Check for matches in each token, unless a match has already been found
                 }
@@ -87,8 +87,8 @@ public class MatchManagerScript : MonoBehaviour {
         //Debug.Log("vertical match found");
 
         GameObject token1 = gameManager.gridArray[x, y + 0];
-        GameObject token2 = gameManager.gridArray[x, y + 1]; //Token one space to the right of original token
-        GameObject token3 = gameManager.gridArray[x, y + 2]; //Token two spaces to the right of original token
+        GameObject token2 = gameManager.gridArray[x, y + 1]; //Token one space above the original token
+        GameObject token3 = gameManager.gridArray[x, y + 2]; //Token two spaces above the original token
 
         if (token1 != null && token2 != null && token3 != null)
         { //Secondary override, make sure each token is valid
@@ -109,7 +109,7 @@ public class MatchManagerScript : MonoBehaviour {
 
     public int GetVerticalMatchHeight(int x, int y)
     { //store matching token positions
-        int matchHeight = 1; //default value, match is at least 1 token long
+        int matchHeight = 1; //default value, match is at least 1 token tall
 
         GameObject first = gameManager.gridArray[x, y]; //call first list
 
@@ -117,10 +117,10 @@ public class MatchManagerScript : MonoBehaviour {
         { //if not null
             SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>(); //check for component
 
-            //Loop through every remaining token to the right of original pos, within the grid width
+            //Loop through every remaining token above the original pos, within the grid height
             for (int i = y + 1; i < gameManager.gridWidth; i++)
             {
-                GameObject other = gameManager.gridArray[x, i]; //Store the next token to the right
+                GameObject other = gameManager.gridArray[x, i]; //Store the next token above
 
                 if (other != null)
                 { //If there is a token
@@ -129,7 +129,7 @@ public class MatchManagerScript : MonoBehaviour {
                     if (sr1.sprite == sr2.sprite)
                     { //Compare sprites between the original and this token's
                       //If next token matches
-                        matchHeight++; //Increase match length by 1
+                        matchHeight++; //Increase match height by 1
                     }
                     else
                     { //Otherwise does not match
@@ -155,7 +155,7 @@ public class MatchManagerScript : MonoBehaviour {
 		//Loop through the grid dimensions
 		for(int x = 0; x < gameManager.gridWidth; x++){
 			for(int y = 0; y < gameManager.gridHeight ; y++){
-				//Don't check the two right most columns
+				//Don't check the two top most columns
 				if(x < gameManager.gridWidth - 2){
 
 					int horizonMatchLength = GetHorizontalMatchLength(x, y); //Calculate length of the match
@@ -192,16 +192,16 @@ public class MatchManagerScript : MonoBehaviour {
         {
             for (int x = 0; x < gameManager.gridWidth; x++)
             {
-                //Don't check the two right most columns
+                //Don't check the two top most rows
                 if (y < gameManager.gridHeight - 2)
                 {
 
-                    int verticalMatchHeight = GetVerticalMatchHeight(y, x); //Calculate length of the match
+                    int verticalMatchHeight = GetVerticalMatchHeight(y, x); //Calculate height of the match
                     Debug.Log(verticalMatchHeight);
 
                     if (verticalMatchHeight > 2)
-                    { //If the match length is greater than 2
-                      //Loop through tokens within the bounds of the length in the row
+                    { //If the match height is greater than 2
+                      //Loop through tokens within the bounds of the height in the column
                         for (int i = y; i < y + verticalMatchHeight; i++)
                         {
                             //Store token at coord
