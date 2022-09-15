@@ -20,6 +20,7 @@ public class GameManagerScript : MonoBehaviour {
 	protected Object[] tokenTypes;
 	//GameObject selected;
 
+
 	public virtual void Start () {
 		//Initialize arrays
 		tokenTypes = (Object[])Resources.LoadAll("Tokens/");
@@ -73,7 +74,7 @@ public class GameManagerScript : MonoBehaviour {
 	// Check each space in the grid for tokens
 	public virtual bool GridHasEmpty(){
 		for(int x = 0; x < gridWidth; x++){
-			for(int y = 0; y < gridHeight ; y++){
+			for(int y = 0; y < gridHeight; y++){
 				if(gridArray[x, y] == null){ //If no token is found
 					return true;
 				}
