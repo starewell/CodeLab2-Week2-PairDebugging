@@ -36,13 +36,15 @@ public class GameManagerScript : MonoBehaviour {
 
 	public virtual void Update() {
 		//Check if the grid is full
+
 		if(!GridHasEmpty()){
 			//Check for matches in the MatchManagerScript
-			if(matchManager.GridHasMatch()){
+			if (matchManager.GridHasMatch()){
 				matchManager.RemoveMatches();
 			} else {
 				//Allow the player to make a selection
 				inputManager.SelectToken();
+				Debug.Log("Selection valid");
 			}
 		//Else there is empty space
 		} else {
