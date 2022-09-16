@@ -16,9 +16,9 @@ public class MatchManagerScript : MonoBehaviour {
 		//Loop through the grid from left to right
 		for(int x = 0; x < gameManager.gridWidth; x++){
 			for(int y = 0; y < gameManager.gridHeight ; y++){
-				//if(x < gameManager.gridWidth - 2){ //Only check tokens 2 spaces away from the right side of the grid
-					//match = (match || GridHasHorizontalMatch(x, y)); //Check for matches in each token, unless a match has already been found
-				//}
+				if(x < gameManager.gridWidth - 2){ //Only check tokens 2 spaces away from the right side of the grid
+					match = (match || GridHasHorizontalMatch(x, y)); //Check for matches in each token, unless a match has already been found
+				}
 				if (y < gameManager.gridHeight - 2) {
 					match = (match || GridHasVerticalMatch(x, y));
 				}
@@ -26,7 +26,7 @@ public class MatchManagerScript : MonoBehaviour {
 		}
 		//Returns false if no matches, returns true if a match is found
 		return match;
-		Debug.Log(match);
+
 	}
 
 	//Check token's rightward neighbors for matching tokens
@@ -106,7 +106,7 @@ public class MatchManagerScript : MonoBehaviour {
 			SpriteRenderer sr1 = first.GetComponent<SpriteRenderer>(); //check for component
 			
 			//Loop through every remaining token below the original pos, within the grid width
-			for(int i = x + 1; i < gameManager.gridWidth; i++) {
+			for(int i = y + 1; i < gameManager.gridHeight; i++) {
 				GameObject other = gameManager.gridArray[x, i]; //Store the next token to the right
 
 				if(other != null){ //If there is a token
@@ -123,7 +123,7 @@ public class MatchManagerScript : MonoBehaviour {
 				}
 			}
 		}
-		
+		Debug.Log(matchLength);
 		return matchLength;
 	}
 
@@ -135,7 +135,7 @@ public class MatchManagerScript : MonoBehaviour {
 		for(int x = 0; x < gameManager.gridWidth; x++){
 			for(int y = 0; y < gameManager.gridHeight ; y++){
 				//Don't check the two right most columns
-				if(x < gameManager.gridWidth - 2){
+				if(x < gameManager.gridWidth - 2) {
 					int horizonMatchLength = GetHorizontalMatchLength(x, y); //Calculate length of the match
 
 					if(horizonMatchLength > 2){ //If the match length is greater than 2
