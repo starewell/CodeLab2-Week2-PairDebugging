@@ -131,7 +131,7 @@ public class MoveTokensScript : MonoBehaviour {
 		}
 	}
 
-	//Returns true when/if a token in the grid's target position has been calculated
+	//Returns true when a token's movement has been initiated
 	//Called repeatedly from GameManager when there is empty space in the grid
 	public virtual bool MoveTokensToFillEmptySpaces(){
 		bool movedToken = false; //Declare false while the lerp operates
@@ -140,7 +140,7 @@ public class MoveTokensScript : MonoBehaviour {
 		for(int x = 0; x < gameManager.gridWidth; x++){
 			for(int y = 1; y < gameManager.gridHeight ; y++){
 				//Check if any spaces in the grid are empty
-				if(gameManager.gridArray[x, y - 1] == null){
+				if(gameManager.gridArray[x, y - 1] == null) {
 					//Loop through tokens above the missing token
 					for(int pos = y; pos < gameManager.gridHeight; pos++){
 						GameObject token = gameManager.gridArray[x, pos];
@@ -149,6 +149,9 @@ public class MoveTokensScript : MonoBehaviour {
 							movedToken = true; //Movement has been calculated
 						}
 					}
+					//FIXED JUMPING TOKENS
+					//Once the first empty space is found, break out of the loop so movement isn't called multiple times
+					break;
 				}
 			}
 		}
