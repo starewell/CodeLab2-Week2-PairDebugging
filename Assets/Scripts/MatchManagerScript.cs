@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MatchManagerScript : MonoBehaviour {
 
@@ -130,6 +131,7 @@ public class MatchManagerScript : MonoBehaviour {
 	//is called repeatedly in GameManager update when there are no empty spaces and GridHasMatch() returns true
 	public virtual int RemoveMatches(){
 		int numRemoved = 0; //Default value, removed no tokens so far
+		List<Vector2> tokensToBeRemoved = new List<Vector2>();
 
 		//Loop through the grid dimensions
 		for(int x = 0; x < gameManager.gridWidth; x++){
@@ -142,12 +144,7 @@ public class MatchManagerScript : MonoBehaviour {
 						//Loop through tokens within the bounds of the length in the row
 						for(int i = x; i < x + horizonMatchLength; i++){
 							//Store token at coord
-							GameObject token = gameManager.gridArray[i, y]; 
-							Destroy(token); //Destroy token at coord
-
-							//Update manager reference grid
-							gameManager.gridArray[i, y] = null;
-							numRemoved++; //Store locally how many are removed
+							tokensToBeRemoved.Add(new Vector2(i, y));
 						}
 					}
 				}
@@ -158,16 +155,19 @@ public class MatchManagerScript : MonoBehaviour {
 						//Loop through tokens within the bounds of the length in the row
 						for(int i = y; i < y + verticalMatchLength; i++){
 							//Store token at coord
-							GameObject token = gameManager.gridArray[x, i]; 
-							Destroy(token); //Destroy token at coord
+							tokensToBeRemoved.Add(new Vector2(x, i));
 
-							//Update manager reference grid
-							gameManager.gridArray[x, i] = null;
-							numRemoved++; //Store locally how many are removed
 						}
 					}
 				}
 			}
+		}
+		foreach(Vector2 coord in tokensToBeRemoved) {
+			Destroy(gameManager.gridArray[(int)coord.x, (int)coord.y]); //Destroy token at coord
+
+			//Update manager reference grid
+			gameManager.gridArray[(int)coord.x, (int)coord.y] = null;
+			numRemoved++; //Store locally how many are removed
 		}
 		//Return number of tokens removed (unused)
 		return numRemoved;
