@@ -30,7 +30,7 @@ public class InputManagerScript : MonoBehaviour {
 					Vector2 pos2 = gameManager.GetPositionOfTokenInGrid(collider.gameObject);
 
 					//check if selected tokens are a valid movement
-					if(Mathf.Abs((pos1.x - pos2.x) + (pos1.y - pos2.y)) == 1){ //check token positions, so that there is only 1 space difference
+					if ((Mathf.Abs(pos1.x - pos2.x) + Mathf.Abs(pos1.y - pos2.y)) == 1){ //check token positions, so that there is only 1 space difference
 						//if valid, move tokens through another class
 						moveManager.SetupTokenExchange(selected, pos1, collider.gameObject, pos2, true); //pass stored data to other class for use
 					}
